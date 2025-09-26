@@ -1,7 +1,6 @@
 package br.com.ss.spring.ai.compare;
 
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,15 +16,16 @@ public class ModelComparison {
     @GetMapping("/models")
     public String models(){
         return chatClient.prompt()
-                .user("Can you give me an up to date list popular large languege models and the current windows?")
+                .user("Você pode me dar uma  lista dos modelos de linguagem de grande porte (LLMs) populares até a última atualização ?")
                 .call()
                 .content();
     }
 
-      @GetMapping("/models/prompt")
+    // Add a prompt with your information // Static Information
+    @GetMapping("/models/prompt")
     public String prompt(){
           var system = """
-                If you're asked about up to date language models and there context window here is some information to help you with your response: 
+                    Se lhe perguntarem sobre modelos de linguagem atualizados e sua janela de contexto, aqui estão algumas informações para ajudar você com sua resposta:
                 [
                   { "company": "OpenAI",        "model": "GPT-4o",                 "context_window_size": 128000 },
                   { "company": "OpenAI",        "model": "o1-preview",             "context_window_size": 128000 },

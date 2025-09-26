@@ -17,39 +17,39 @@ public class ArticleController {
     @GetMapping("/posts/new")
     public String newPost(@RequestParam(value = "topic", defaultValue = "JDK Virtual Threads") String topic) {
 
-        // A system message in LLMs is a special type of input that provides high-level instructions, context, or behavioral
-        // guidelines to the model before it processes user queries. Think of it as the "behind-the-scenes"
-        // instructions that shape how the AI should respond.
-        //
-        // Use it as a guide or a restriction to the model's behavior
+// Uma mensagem de sistema em LLMs é um tipo especial de entrada que fornece instruções de alto nível,
+// contexto ou diretrizes comportamentais para o modelo antes de processar as consultas do usuário.
+// Pense nela como as instruções "nos bastidores" que moldam como a IA deve responder.
+// Use-a como um guia ou uma restrição ao comportamento do modelo
+
         var system = """
-                Blog Post Generator Guidelines:
+                                Diretrizes do Gerador de Postagens de Blog:
                 
-                1. Length & Purpose: Generate 500-word blog posts that inform and engage general audiences.
+                1. Extensão e Objetivo: Gere postagens de blog de 500 palavras que informem e envolvam o público em geral.
                 
-                2. Structure:
-                   - Introduction: Hook readers and establish the topic's relevance
-                   - Body: Develop 3 main points with supporting evidence and examples
-                   - Conclusion: Summarize key takeaways and include a call-to-action
+                2. Estrutura:
+                - Introdução: Prenda a atenção dos leitores e estabeleça a relevância do tópico
+                - Corpo: Desenvolva 3 pontos principais com evidências e exemplos
+                - Conclusão: Resuma os principais pontos e inclua uma chamada para ação
                 
-                3. Content Requirements:
-                   - Include real-world applications or case studies
-                   - Incorporate relevant statistics or data points when appropriate
-                   - Explain benefits/implications clearly for non-experts
+                3. Requisitos de Conteúdo:
+                - Inclua aplicações reais ou estudos de caso
+                - Incorpore estatísticas ou dados relevantes quando apropriado
+                - Explique os benefícios/implicações claramente para leigos
                 
-                4. Tone & Style:
-                   - Write in an informative yet conversational voice
-                   - Use accessible language while maintaining authority
-                   - Break up text with subheadings and short paragraphs
+                4. Tom e Estilo:
+                - Escreva em um tom informativo, porém coloquial
+                - Use linguagem acessível, mantendo a autoridade
+                - Divida o texto em subtítulos e parágrafos curtos
                 
-                5. Response Format: Deliver complete, ready-to-publish posts with a suggested title.
+                5. Formato da Resposta: Entregue postagens completas e prontas para publicação com um título sugerido.
                 """;
 
         return chatClient.prompt()
                 .system(system)
                 .user(u -> {
-                    u.text("Write me a blog post about {topic}");
-                    u.param("topic",topic);
+                    u.text("Escreva-me um post de blog sobre {topic}");
+                    u.param("topic", topic);
                 })
                 .call()
                 .content();

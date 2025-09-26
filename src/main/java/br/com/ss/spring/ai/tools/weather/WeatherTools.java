@@ -42,11 +42,13 @@ public class WeatherTools {
         @JsonIgnoreProperties(ignoreUnknown = true)
         public record Period(@JsonProperty("number") Integer number, @JsonProperty("name") String name,
                              @JsonProperty("startTime") String startTime, @JsonProperty("endTime") String endTime,
-                             @JsonProperty("isDaytime") Boolean isDayTime, @JsonProperty("temperature") Integer temperature,
+                             @JsonProperty("isDaytime") Boolean isDayTime,
+                             @JsonProperty("temperature") Integer temperature,
                              @JsonProperty("temperatureUnit") String temperatureUnit,
                              @JsonProperty("temperatureTrend") String temperatureTrend,
                              @JsonProperty("probabilityOfPrecipitation") Map probabilityOfPrecipitation,
-                             @JsonProperty("windSpeed") String windSpeed, @JsonProperty("windDirection") String windDirection,
+                             @JsonProperty("windSpeed") String windSpeed,
+                             @JsonProperty("windDirection") String windDirection,
                              @JsonProperty("icon") String icon, @JsonProperty("shortForecast") String shortForecast,
                              @JsonProperty("detailedForecast") String detailedForecast) {
         }
@@ -61,14 +63,16 @@ public class WeatherTools {
 
         @JsonIgnoreProperties(ignoreUnknown = true)
         public record Properties(@JsonProperty("event") String event, @JsonProperty("areaDesc") String areaDesc,
-                                 @JsonProperty("severity") String severity, @JsonProperty("description") String description,
+                                 @JsonProperty("severity") String severity,
+                                 @JsonProperty("description") String description,
                                  @JsonProperty("instruction") String instruction) {
         }
     }
 
     /**
      * Get forecast for a specific latitude/longitude
-     * @param latitude Latitude
+     *
+     * @param latitude  Latitude
      * @param longitude Longitude
      * @return The forecast for the given location
      * @throws RestClientException if the request fails
@@ -85,11 +89,11 @@ public class WeatherTools {
 
         String forecastText = forecast.properties().periods().stream().map(p -> {
             return String.format("""
-					%s:
-					Temperature: %s %s
-					Wind: %s %s
-					Forecast: %s
-					""", p.name(), p.temperature(), p.temperatureUnit(), p.windSpeed(), p.windDirection(),
+                            %s:
+                            Temperature: %s %s
+                            Wind: %s %s
+                            Forecast: %s
+                            """, p.name(), p.temperature(), p.temperatureUnit(), p.windSpeed(), p.windDirection(),
                     p.detailedForecast());
         }).collect(Collectors.joining());
 
@@ -98,23 +102,24 @@ public class WeatherTools {
 
     /**
      * Get alerts for a specific area
+     *
      * @param state Area code. Two-letter US state code (e.g. CA, NY)
      * @return Human-readable alert information
      * @throws RestClientException if the request fails
      */
     @Tool(description = "Get weather alerts for a US state. Input is Two-letter US state code (e.g. CA, NY)")
-    public String getAlerts(@ToolParam( description =  "Two-letter US state code (e.g. CA, NY") String state) {
+    public String getAlerts(@ToolParam(description = "Two-letter US state code (e.g. CA, NY") String state) {
         Alert alert = restClient.get().uri("/alerts/active/area/{state}", state).retrieve().body(Alert.class);
 
         return alert.features()
                 .stream()
                 .map(f -> String.format("""
-					Event: %s
-					Area: %s
-					Severity: %s
-					Description: %s
-					Instructions: %s
-					""", f.properties().event(), f.properties.areaDesc(), f.properties.severity(),
+                                Event: %s
+                                Area: %s
+                                Severity: %s
+                                Description: %s
+                                Instructions: %s
+                                """, f.properties().event(), f.properties.areaDesc(), f.properties.severity(),
                         f.properties.description(), f.properties.instruction()))
                 .collect(Collectors.joining("\n"));
     }

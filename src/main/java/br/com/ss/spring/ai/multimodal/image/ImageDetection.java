@@ -13,7 +13,7 @@ import java.io.IOException;
 public class ImageDetection {
 
     private final ChatClient chatClient;
-    @Value("classpath:/images/sincerely-media-2UlZpdNzn2w-unsplash.jpg")
+    @Value("classpath:/images/ballons.jpg")
     Resource sampleImage;
 
     public ImageDetection(ChatClient.Builder builder) {
@@ -24,7 +24,7 @@ public class ImageDetection {
     public String image() throws IOException {
         return chatClient.prompt()
                 .user(u -> u
-                        .text("Can you please explain what you see in the following image?")
+                        .text("Pode me explicar o que visualiza na imagem ?")
                         .media(MimeTypeUtils.IMAGE_JPEG,sampleImage)
                 )
                 .call()

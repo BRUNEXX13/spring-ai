@@ -14,19 +14,21 @@ public class VacationPlan {
         this.chatClient = builder.build();
     }
 
+    // To get a result with no Context Data
     @GetMapping("/vacation/unstructured")
     public String vacationUnstructured() {
         return chatClient.prompt()
-                .user("What's a good vacation plan while I'm in Montreal CA for 4 days?")
+                .user("Estou querendo viajar para Bahia, Me de uma lista de que coisas para fazer")
                 .call()
                 .content();
     }
 
+    // To a Data Structured
     @GetMapping("/vacation/structured")
-    public Itinerary vacationStructured(@RequestParam(value = "destination", defaultValue = "Cleveland, OH") String destination) {
+    public Itinerary vacationStructured(@RequestParam(value = "destination", defaultValue = "São Paulo") String destination) {
         return chatClient.prompt()
                 .user(u -> {
-                    u.text("What's a good vacation plan while I'm in {destination} for 3 days?");
+                    u.text(" Qual é um bom plano de férias enquanto estou em {destination} por 3 dias?");
                     u.param("destination", destination);
                 })
                 .call()

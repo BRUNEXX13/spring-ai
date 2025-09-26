@@ -16,7 +16,7 @@ public class DateTimeController {
     @GetMapping("/tools")
     public String tools() {
         return chatClient.prompt()
-                .user("What is tomorrow's date?")
+                .user("Qual é a data de amanhã??")
                 .tools(new DateTimeTools())
                 .call()
                 .content();

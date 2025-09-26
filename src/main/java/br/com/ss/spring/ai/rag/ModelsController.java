@@ -18,8 +18,9 @@ public class ModelsController {
                 .build();
     }
 
+    //Imagine a Cenario to Conect in Database e Create a Response About products, share, market etc"
     @GetMapping("/rag/models")
-    public Models faq(@RequestParam(value = "message", defaultValue = "Give me a list of all the models from OpenAI along with their context window") String messsage) {
+    public Models faq(@RequestParam(value = "message", defaultValue = "Dê-me uma lista de todos os modelos do OpenAI junto com sua janela de contexto") String messsage) {
         return chatClient.prompt()
                 .user(messsage)
                 .call()

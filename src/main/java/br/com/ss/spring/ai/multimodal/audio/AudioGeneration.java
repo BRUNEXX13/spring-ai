@@ -23,11 +23,11 @@ public class AudioGeneration {
 
     @GetMapping("/speak")
     public ResponseEntity<byte[]> generateSpeech(
-            @RequestParam(defaultValue = "It's a great time to be a Java & Spring Developer!") String text) {
+            @RequestParam(defaultValue = "Bom dia Itubers ") String text) {
 
         var options = OpenAiAudioSpeechOptions.builder()
                 .model("tts-1-hd") // or "tts-1-hd" for higher quality
-                .voice(OpenAiAudioApi.SpeechRequest.Voice.ALLOY) // ALLOY, ECHO, FABLE, ONYX, NOVA, SHIMMER
+                .voice(OpenAiAudioApi.SpeechRequest.Voice.CORAL) // ALLOY, ECHO, FABLE, ONYX, NOVA, SHIMMER
                 .responseFormat(OpenAiAudioApi.SpeechRequest.AudioResponseFormat.MP3)
                 .speed(1.0f) // 0.25 to 4.0
                 .build();

@@ -19,6 +19,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+/*
+A Geração Aumentada de Recuperação (RAG)  Retrieval Augmented Generation
+é uma técnica útil para superar as limitações de grandes modelos de linguagem
+que têm dificuldades com conteúdo longo, precisão factual e percepção de contexto.
+
+O Spring AI oferece suporte ao RAG fornecendo uma arquitetura modular que permite que você crie fluxos RAG personalizados
+ ou use fluxos RAG prontos para uso usando a AdvisorAPI.
+ */
+
 @Configuration
 public class RagConfiguration {
 

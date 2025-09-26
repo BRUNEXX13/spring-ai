@@ -23,7 +23,7 @@ public class ImageGeneration {
 
     @GetMapping("/generate-image")
     public ResponseEntity<Map<String, String>> generateImage(
-            @RequestParam(defaultValue = "A beautiful sunset over mountains") String prompt) {
+            @RequestParam(defaultValue = "Uma linda praia com sol ") String prompt) {
 
         ImageOptions options = OpenAiImageOptions.builder()
                 .model("dall-e-3")
